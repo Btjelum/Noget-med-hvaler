@@ -16,7 +16,7 @@ p_enc = 0.05 # probability of repeatedly encountering the same whales
 
 e1 , e2 = 2.36*10**(-3), 41.63*10**(-3) # GHG per passenger-trip (tCO2eq per passenger trip , type I, type II)
 
-hb1 , hb2 = 43.95/(th1*60), 118.6/(th2*60) # minutes -of -life gained per passenger-hour with whales (type I, type II)
+hb1 , hb2 = 43.95/(th1), 118.6/(th2) # minutes -of -life gained per passenger-hour with whales (type I, type II)
 
 # Biodiversity logistic regression coefficients
 a = -4.97 # intercept of logistic model
@@ -30,9 +30,9 @@ P_start = 300000 # initial passenger demand
 # Weights
 w_H = 2.0 # weight on health benefit term
 w_P = 1.0 # weight on passengers served term
-w_C = 10.0 # weight on carbon penalty term
+w_C = 1.0 # weight on carbon penalty term
 w_B = 2.0 # weight on biodiversity penalty term
-w_cap = 200.0 # weight on excess capacity penalty term
+w_cap = 20.0 # weight on excess capacity penalty term
 
 def passengers(n1 , n2, L=130, t1=2, t2=2, cap1=20, cap2=100):
     Ptot = L * (n1 * t1 * cap1 + n2 * t2 * cap2)
@@ -91,7 +91,7 @@ def passenger_demand(year , P0=10 , growth_rate =0.05):
     return P0 * (1.0 + growth_rate)**( year - 1)
 
 # Evaluate combined objective over years
-years = np.arange(1, 26)  # years 1 to 25
+years = np.arange(1, 36)  # years 1 to 25
 growth_rate = 0.05  # 5% annual growth in passenger demand
 
 # Compute reference metrics from initial reference fleet
